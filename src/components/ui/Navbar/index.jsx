@@ -1,0 +1,68 @@
+import Logo from '../../shared/Logo'
+import { useLocation } from 'react-router-dom'
+import { AnimatePresence, motion } from 'framer-motion'
+import { useState } from 'react';
+import Menu from '../Menu';
+export default function Navbar() {
+    const [isOpen, setIsOpen] = useState(false)
+    const {pathname} = useLocation();
+  return (
+    <header className='py-10'>
+        <nav className='flex items-center justify-between px-10'>
+            {pathname !== "/" && <Logo />}
+            <motion.div animate={isOpen ? "open" : "closed"} onClick={() => setIsOpen(!isOpen)} className='w-[120px] z-20 cursor-pointer ml-auto h-6 flex flex-col justify-between items-center'>
+                <motion.div 
+                 variants={{
+                  open: {
+                    height: "2px",
+                    width: "100%",
+                    marginLeft: "auto",
+                  },
+                  closed: {
+                    height: "2px",
+                    width: "100%",
+                    marginLeft: "auto",
+                  },
+                }}
+                className='h-0.5 bg-white w-full'></motion.div>
+                <motion.div
+                 variants={{
+                  open: {
+                    height: "2px",
+                    width: "75%",
+                    marginLeft: "auto",
+                  },
+                  closed: {
+                    height: "2px",
+                    width: "100%",
+                    marginLeft: "auto",
+                  },
+                }}
+                className='h-0.5 bg-white w-full'></motion.div>
+                <motion.div
+                 variants={{
+                  open: {
+                    height: "2px",
+                    width: "50%",
+                    marginLeft: "auto",
+                  },
+                  closed: {
+                    height: "2px",
+                    width: "100%",
+                    marginLeft: "auto",
+                  },
+                }}
+                className='h-0.5 bg-white w-full'></motion.div>
+            </motion.div>
+
+            <AnimatePresence>
+              {isOpen && <Menu />}
+            </AnimatePresence>
+        </nav>
+    </header>
+  )
+}
+
+//animate={isOpen ? "open" : "close"} onClick={setIsOpen(!isOpen)}
+
+
